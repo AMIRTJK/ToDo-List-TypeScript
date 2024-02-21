@@ -1,0 +1,11 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Sharipov Amir",
+      "age": 24,
+      "email": "jsharipovamir@gmail.com",
+      "status": false
+    }
+  ]
+}
