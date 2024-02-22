@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 
 import "./App.css";
 import { User } from "./interfaces/UserType";
@@ -13,17 +13,23 @@ const App = () => {
 
   const [modal, setModal] = useState<boolean>(false);
 
+  const [search, setSearch] = useState<string>("");
+
   const handleModal = (stateModal: boolean): void => {
     setModal(stateModal);
   };
 
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  };
+
   useEffect(() => {
     const handlePromise = async () => {
-      const promise = await getUser();
+      const promise = await getUser(search);
       setUserData(promise);
     };
     handlePromise();
-  }, [userData]);
+  }, [userData, search]);
 
   return (
     <>
@@ -36,7 +42,14 @@ const App = () => {
               </a>
             </li>
             <li className="w-full">
-              <TextField fullWidth placeholder="Search..." />
+              <TextField
+                value={search}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  handleChange(event)
+                }
+                fullWidth
+                placeholder="Search..."
+              />
             </li>
             <li>
               <Button
@@ -54,7 +67,7 @@ const App = () => {
           <section>
             <ul className="flex flex-col">
               {userData.map((e) => {
-                return <UserList item={e} />;
+                return <UserList item={e} key={e.id} />;
               })}
             </ul>
           </section>

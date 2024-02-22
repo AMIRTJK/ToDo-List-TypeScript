@@ -2,9 +2,9 @@ import { User } from "../interfaces/UserType";
 
 const API = "http://localhost:3000/data";
 
-export const getUser = async (): Promise<User[]> => {
+export const getUser = async (search: string): Promise<User[]> => {
   try {
-    const response = await fetch(API);
+    const response = await fetch(`${API}?q=${search}`);
     const data = await response.json();
     return data;
   } catch (error) {
