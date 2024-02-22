@@ -1,6 +1,6 @@
 import { User } from "../interfaces/UserType";
 
-const API = "https://github.com/AMIRTJK/ToDo-List-TypeScript/blob/main/db.json";
+const API = "https://my-json-server.typicode.com/AMIRTJK/ToDo-List-TypeScript/data";
 
 export const getUser = async (search: string): Promise<User[]> => {
   try {
