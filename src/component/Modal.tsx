@@ -43,7 +43,7 @@ const Modal = (props: ModalProps) => {
     >
       <div
         onClick={(event) => handlePropagation(event)}
-        className="content w-[30%] bg-[#fff] rounded-md px-[30px] py-[20px] absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]"
+        className="content w-[90%] md:w-[30%] bg-[#fff] rounded-md px-[30px] py-[20px] absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]"
       >
         <h1 className="text-center mb-5 text-xl">Список задач</h1>
         <form
