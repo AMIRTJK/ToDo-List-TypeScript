@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://amirtjk.github.io/ToDo-List-TypeScript",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
