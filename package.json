@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://amirtjk.github.io/src/app.tsx",
+  "homepage": "https://amirtjk.github.io/src/main.tsx",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
