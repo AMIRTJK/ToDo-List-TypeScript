@@ -29,9 +29,9 @@ const UserList = (props: UserProps) => {
           : status === true && id !== 1
           ? "bg-[#6e93c830] hover:bg-[#6e93c848] rounded-b-md"
           : ""
-      } flex justify-between items-center gap-5 border-b-[1px] p-[15px] cursor-pointer hover:bg-[#6e93c810] transition-all duration-150`}
+      } flex flex-wrap justify-center md:justify-between items-center gap-5 border-b-[1px] p-[15px] cursor-pointer hover:bg-[#6e93c810] transition-all duration-150`}
     >
-      <div className="flex items-center gap-10">
+      <div className="flex flex-wrap justify-center md:justify-start items-center gap-10">
         <Avatar />
         <p>{name}</p>
         <p>{age}</p>

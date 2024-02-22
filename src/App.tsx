@@ -35,8 +35,8 @@ const App = () => {
     <>
       <div className="px-[60px]">
         <header className="py-[30px] pb-[100px]">
-          <ul className="flex justify-between items-center gap-10">
-            <li className="w-[10%]">
+          <ul className="flex flex-wrap md:flex-nowrap justify-center md:justify-between items-center gap-10">
+            <li className="md:w-[10%]">
               <a href="" className="text-[20px]">
                 TODO LIST
               </a>
