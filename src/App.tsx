@@ -1,52 +1,65 @@
 import React, { useEffect, useState } from "react";
 
 import "./App.css";
-import { getData } from "./api/UserData";
-import { UserType } from "./interfaces/UserType";
+import { User } from "./interfaces/UserType";
 import Modal from "./component/Modal";
 
 import { Button, TextField } from "@mui/material";
 import UserList from "./component/UserList";
+import { getUser } from "./api/UserData";
 
 const App = () => {
-  const [data, setData] = useState<UserType[]>([]);
+  const [userData, setUserData] = useState<User[]>([]);
+
   const [modal, setModal] = useState<boolean>(false);
 
-  const handleOpen = (modal: boolean): void => {
-    setModal(modal);
+  const handleModal = (stateModal: boolean): void => {
+    setModal(stateModal);
   };
 
   useEffect(() => {
     const handlePromise = async () => {
-      const promise = await getData();
-      setData(promise);
+      const promise = await getUser();
+      setUserData(promise);
     };
     handlePromise();
-  }, [data]);
+  }, [userData]);
 
   return (
     <>
-      <main className="px-[60px]">
-        <header className="flex items-center gap-5 justify-between py-[20px] mb-[100px]">
-          <h1 className="text-[20px]">TODO LIST</h1>
-          <TextField placeholder="Search..." sx={{ width: "70%" }} />
-          <Button
-            onClick={() => handleOpen(true)}
-            variant="contained"
-            sx={{ height: "56px", width: "20%" }}
-          >
-            Add
-          </Button>
+      <div className="px-[60px]">
+        <header className="py-[30px] pb-[100px]">
+          <ul className="flex justify-between items-center gap-10">
+            <li className="w-[10%]">
+              <a href="" className="text-[20px]">
+                TODO LIST
+              </a>
+            </li>
+            <li className="w-full">
+              <TextField fullWidth placeholder="Search..." />
+            </li>
+            <li>
+              <Button
+                onClick={() => handleModal(true)}
+                variant="contained"
+                sx={{ height: "56px" }}
+              >
+                Добавить
+              </Button>
+            </li>
+          </ul>
+          {modal && <Modal handleModal={handleModal} />}
         </header>
-        {/* Modal Add */}
-        {modal && <Modal handleOpen={handleOpen} />}
-        {/* TODO LIST */}
-        <ul className="flex flex-col gap-7">
-          {data.map((e) => {
-            return <UserList key={e.id} item={e} />;
-          })}
-        </ul>
-      </main>
+        <main>
+          <section>
+            <ul className="flex flex-col">
+              {userData.map((e) => {
+                return <UserList item={e} />;
+              })}
+            </ul>
+          </section>
+        </main>
+      </div>
     </>
   );
 };

@@ -1,41 +1,36 @@
-import { UserType } from "../interfaces/UserType";
+import { User } from "../interfaces/UserType";
 
 const API = "http://localhost:3000/data";
 
-// GET QUERY FETCH
-
-export const getData = async (): Promise<UserType[]> => {
+export const getUser = async (): Promise<User[]> => {
   try {
     const response = await fetch(API);
-    return await response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
 
-// POST QUERY FETCH
-
-export const postData = async (data: object): Promise<UserType[]> => {
+export const postUser = async (newData: object): Promise<User[]> => {
   try {
     const response = await fetch(API, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(newData),
     });
-    getData();
-    return await response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
 
-// DELETE QUERY FETCH
-
-export const deleteData = async (id: number): Promise<UserType[]> => {
+export const deleteUser = async (id: number): Promise<User> => {
   try {
     const response = await fetch(`${API}/${id}`, {
       method: "DELETE",
@@ -43,29 +38,25 @@ export const deleteData = async (id: number): Promise<UserType[]> => {
         "Content-Type": "application/json",
       },
     });
-    return await response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
 
-// PUT QUERY FETCH
-
-export const putData = async (
-  data: object,
-  id: number
-): Promise<UserType[]> => {
+export const putUser = async (newObj: User, id: number): Promise<User[]> => {
   try {
     const response = await fetch(`${API}/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(newObj),
     });
-    getData();
-    return await response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error(error);
     throw error;

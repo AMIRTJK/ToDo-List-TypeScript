@@ -1,21 +1,37 @@
 import React from "react";
-import { UserListProps, UserType } from "../interfaces/UserType";
-import { deleteData } from "../api/UserData";
-import { putData } from "../api/UserData";
 
-import { Avatar, IconButton, Checkbox } from "@mui/material";
+import { UserProps } from "../interfaces/UserType";
+import { deleteUser, putUser } from "../api/UserData";
+
+import { Avatar, Checkbox, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const UserList: React.FC<UserListProps> = (props) => {
+const UserList = (props: UserProps) => {
   const { id, name, age, email, status } = props.item;
+
+  const handleChange = () => {
+    const newObj = {
+      id: id,
+      name: name,
+      age: age,
+      email: email,
+      status: !status,
+    };
+    putUser(newObj, id);
+  };
+
   return (
     <li
       className={`${
-        status ? "line-through text-[red]" : ""
-      } flex items-center justify-between border-b-[1px] pb-[10px]`}
+        status === true && id === 1
+          ? "bg-[#6e93c830] hover:bg-[#6e93c848] rounded-t-md"
+          : status === true && id !== 1
+          ? "bg-[#6e93c830] hover:bg-[#6e93c848] rounded-b-md"
+          : ""
+      } flex justify-between items-center gap-5 border-b-[1px] p-[15px] cursor-pointer hover:bg-[#6e93c810] transition-all duration-150`}
     >
-      <div className="wrapper-user flex items-center gap-10">
+      <div className="flex items-center gap-10">
         <Avatar />
         <p>{name}</p>
         <p>{age}</p>
@@ -25,20 +41,8 @@ const UserList: React.FC<UserListProps> = (props) => {
         <IconButton>
           <EditIcon sx={{ color: "green" }} />
         </IconButton>
-        <Checkbox
-          checked={status}
-          onChange={() => {
-            const newObj: UserType = {
-              id: id,
-              name: name,
-              age: age,
-              email: email,
-              status: !status,
-            };
-            putData(newObj, id);
-          }}
-        />
-        <IconButton onClick={() => deleteData(id)}>
+        <Checkbox onChange={handleChange} checked={status} />
+        <IconButton onClick={() => deleteUser(id)}>
           <DeleteIcon sx={{ color: "red" }} />
         </IconButton>
       </div>

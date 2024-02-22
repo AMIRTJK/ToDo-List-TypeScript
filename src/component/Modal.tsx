@@ -1,69 +1,75 @@
-import React, { ChangeEvent, useState } from "react";
-import { UserType } from "../interfaces/UserType";
-import { postData } from "../api/UserData";
+import React, { useState, SyntheticEvent, ChangeEvent } from "react";
+
+import { postUser } from "../api/UserData";
 
 import { Button, TextField } from "@mui/material";
+import { ModalProps } from "../interfaces/UserType";
 
-const Modal = (props) => {
-  const { handleOpen } = props;
+const Modal = (props: ModalProps) => {
+  const { handleModal } = props;
 
   const [name, setName] = useState<string>("");
   const [age, setAge] = useState<number | string>("");
   const [email, setEmail] = useState<string>("");
 
-  const handleValue = (set, event) => {
+  const handlePropagation = (event: SyntheticEvent) => {
+    event.stopPropagation();
+  };
+
+  const handlePostValue = (
+    set: any,
+    event: ChangeEvent<HTMLInputElement>
+  ): void => {
     set(event.target.value);
   };
 
-  const handleClick = (event: React.SyntheticEvent): void => {
-    event.stopPropagation();
+  const handleSubmit = (event: SyntheticEvent) => {
+    const newObj = {
+      id: Date.now(),
+      name: name,
+      age: age,
+      email: email,
+      status: false,
+    };
+    postUser(newObj);
+    event.preventDefault();
+    handleModal(false);
   };
 
   return (
     <div
-      onClick={() => handleOpen(false)}
-      className="modal fixed h-full w-full top-0 left-0 bg-[#00000040] z-10"
+      onClick={() => handleModal(false)}
+      className="modal w-full h-full z-10 fixed top-0 left-0 bg-[#00000040]"
     >
       <div
-        onClick={handleClick}
-        className="content bg-white w-[30%] rounded-md p-[20px] absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]"
+        onClick={(event) => handlePropagation(event)}
+        className="content w-[30%] bg-[#fff] rounded-md px-[30px] py-[20px] absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]"
       >
-        <h1 className="mb-[15px] text-[20px] text-center">Список задач</h1>
+        <h1 className="text-center mb-5 text-xl">Список задач</h1>
         <form
-          onSubmit={(event) => {
-            const newObj: UserType = {
-              id: Date.now(),
-              name: name,
-              age: age,
-              email: email,
-              status: false,
-            };
-            postData(newObj);
-            event.preventDefault();
-            handleOpen(false);
-          }}
+          onSubmit={(event) => handleSubmit(event)}
           className="flex flex-col gap-5"
         >
           <TextField
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              handleValue(setName, event)
+              handlePostValue(setName, event)
             }
             value={name}
-            label="Введите имя"
+            label="Введите имя..."
           />
           <TextField
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              handleValue(setAge, event)
+              handlePostValue(setAge, event)
             }
             value={age}
-            label="Введите возраст"
+            label="Введите возраст..."
           />
           <TextField
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              handleValue(setEmail, event)
+              handlePostValue(setEmail, event)
             }
             value={email}
-            label="Введите e-mail адресс"
+            label="Введите e-mail адресс..."
           />
           <Button type="submit" variant="contained">
             Добавить задачу
