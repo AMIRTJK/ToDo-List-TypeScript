@@ -1,1 +1,19 @@
 
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Sharipov Amir",
+      "age": "24",
+      "email": "jsharipovamir@gmail.com",
+      "status": false
+    },
+    {
+      "id": 2,
+      "name": "Bekov Firdavs",
+      "age": "28",
+      "email": "firdavsbekov@gmail.com",
+      "status": false
+    }
+  ]
+}
